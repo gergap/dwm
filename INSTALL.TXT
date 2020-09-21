@@ -1,0 +1,5 @@
+# install dependencies on Debian
+sudo apt install libxft-dev
+sudo apt install libxinerama-dev
+# install some tools
+sudo apt install xcompmgr feh xss-lock terminator

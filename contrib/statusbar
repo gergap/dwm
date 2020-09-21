@@ -1,0 +1,39 @@
+#!/bin/bash
+BAT="/sys/class/power_supply/BAT0"
+# while loop to update statusbar with some goodies
+while true; do
+    #battery
+    battotal=`cat $BAT/charge_full`;
+    batfree=`cat $BAT/charge_now`;
+    battper=$(( 100*$batfree/$battotal ));
+    battery=`cat $BAT/status`;
+    #     
+    if [ "$battery" == "Charging" ]; then
+        batt=""
+    elif [ $battper -gt 85 ]; then
+        batt=""
+    elif [ $battper > 60 ]; then
+        batt=""
+    elif [ $battper > 35 ]; then
+        batt=""
+    elif [ $battper > 15 ]; then
+        batt=""
+    else
+        batt=""
+    fi
+    #memfreak to get it in MB
+    memfreak2=`grep MemFree /proc/meminfo | awk '{ print $2 }'`;
+    memfreak=$(( $memfreak2/1024 ));
+    #time
+    CLK=$( date +'%a %b %d %R:%S %Z' )
+    #volume
+    VOL=$( amixer get Master | tail -1 | awk '{ print $5 }' | tr -d '[]' )
+    #loadavg
+    AVG=$( cat /proc/loadavg | cut -d ' ' -f -3 )
+    #network stats in Bytes
+    #NW=$( dstat -n --nocolor 1 1 | tail -1 | awk '{ print $1, $2}' )
+    #this one is not so good, increases a delay of 1-2s of the updating.
+    #put it in the xsetrootname plz (tip of the day, do not put | as first char after "
+    xsetroot -name "CPU: $AVG | $memfreak MB | $battper% $batt | Vol: $VOL | $CLK | "
+    sleep 1
+done
