@@ -70,6 +70,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "terminator", NULL };
 static const char *webcmd[]   = { "chromium", NULL };
 static const char *webaltcmd[] = { "firefox-esr", NULL };
+static const char *mattermostcmd[] = { "mattermost-desktop", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
@@ -80,6 +81,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = webaltcmd } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = mattermostcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
