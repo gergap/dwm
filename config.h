@@ -1,12 +1,14 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 16;       /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Hack:size=12" };
+static const char *fonts[]          = { "FontAwesome:size=12" };
 static const char dmenufont[]       = "Hack:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
