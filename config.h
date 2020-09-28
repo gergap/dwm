@@ -84,6 +84,8 @@ static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "togg
 static const char *playpause[] = { "/usr/bin/rhythmbox-client", "--play-pause", NULL };
 static const char *passcmd[] = { "passmenu", "--type", NULL };
 static const char *speccmd[] = { "specs", NULL };
+static const char *brightup[]   = { "xbacklight", "-inc", "10", NULL};
+static const char *brightdown[] = { "xbacklight", "-dec", "10", NULL};
 
 #include "selfrestart.c"
 
@@ -135,6 +137,8 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioLowerVolume,   spawn, { .v = downvol } },
 	{ 0,                            XF86XK_AudioMute,          spawn, { .v = mutevol } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, {.v = upvol } },
+    { 0,                            XF86XK_MonBrightnessUp,    spawn,            {.v = brightup } },
+    { 0,                            XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } },
 };
 
 /* button definitions */
