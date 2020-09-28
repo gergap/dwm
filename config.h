@@ -81,6 +81,7 @@ static const char *mattermostcmd[] = { "mattermost-desktop", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+static const char *playpause[] = { "/usr/bin/rhythmbox-client", "--play-pause", NULL };
 static const char *passcmd[] = { "passmenu", "--type", NULL };
 static const char *speccmd[] = { "specs", NULL };
 
@@ -130,6 +131,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY,                       XK_q,      self_restart,   {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0,                            XF86XK_AudioPlay,          spawn, { .v = playpause } },
 	{ 0,                            XF86XK_AudioLowerVolume,   spawn, { .v = downvol } },
 	{ 0,                            XF86XK_AudioMute,          spawn, { .v = mutevol } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, {.v = upvol } },
