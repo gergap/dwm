@@ -13,17 +13,31 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_black[]       = "#000000";
+static const char col_red[]         = "#ff0000";
+static const char col_green[]       = "#00ff00";
+static const char col_orange[]      = "#d75f00";
+static const char col_yellow[]      = "#ffff00";
+static const char col_white[]       = "#ffffff";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+    [SchemeNorm]   = { col_gray3,  col_gray1,   col_gray2 },
+    [SchemeSel]    = { col_gray4,  col_cyan,    col_orange },
+    [SchemeWarn]   = { col_black,  col_yellow,  col_red },
+    [SchemeUrgent] = { col_white,  col_red,     col_red },
+    [SchemeOn]     = { col_green,  col_gray1,   col_gray2 },
+    [SchemeOff]    = { col_red,    col_gray1,   col_gray2 },
 };
 static const unsigned int alphas[][3]      = {
-	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+       /*               fg      bg        border     */
+       [SchemeNorm]   = { OPAQUE, baralpha, borderalpha },
+       [SchemeSel]    = { OPAQUE, baralpha, borderalpha },
+       [SchemeWarn]   = { OPAQUE, baralpha, borderalpha },
+       [SchemeUrgent] = { OPAQUE, baralpha, borderalpha },
+       [SchemeOn]     = { OPAQUE, baralpha, borderalpha },
+       [SchemeOff]    = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
