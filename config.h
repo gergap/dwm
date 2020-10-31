@@ -98,6 +98,7 @@ static const char *passcmd[] = { "passmenu", "--type", NULL };
 static const char *speccmd[] = { "specs", NULL };
 static const char *brightup[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *brightdown[] = { "xbacklight", "-dec", "10", NULL};
+static const char *vpntoggle[] = { "vpn_toggle", NULL};
 
 #include "selfrestart.c"
 
@@ -110,6 +111,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = webaltcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = mattermostcmd } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = speccmd } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = vpntoggle } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
