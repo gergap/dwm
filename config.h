@@ -99,6 +99,7 @@ static const char *speccmd[] = { "specs", NULL };
 static const char *brightup[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *brightdown[] = { "xbacklight", "-dec", "10", NULL};
 static const char *vpntoggle[] = { "vpn_toggle", NULL};
+static const char *showhelp[] = { "/usr/bin/mupdf", "/usr/local/share/doc/dwm/dwm-cheatsheet.pdf", NULL};
 
 #include "selfrestart.c"
 
@@ -112,6 +113,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          {.v = mattermostcmd } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = speccmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpntoggle } },
+	{ 0,                            XK_F1,     spawn,          {.v = showhelp } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
