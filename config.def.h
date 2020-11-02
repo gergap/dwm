@@ -1,13 +1,15 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 18;       /* gap pixel between windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int gappx     = 16;       /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "FontAwesome:size=12" };
+static const char dmenufont[]       = "Hack:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -22,11 +24,11 @@ static const char col_white[]       = "#ffffff";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
+    /*               fg         bg         border   */
     [SchemeNorm]   = { col_gray3,  col_gray1,   col_gray2 },
     [SchemeSel]    = { col_gray4,  col_cyan,    col_orange },
-    [SchemeWarn]   = { col_black,  col_yellow,  col_red },
-    [SchemeUrgent] = { col_white,  col_red,     col_red },
+    [SchemeWarn]   = { col_yellow, col_gray1,   col_yellow },
+    [SchemeUrgent] = { col_red,    col_gray1,   col_red },
     [SchemeOn]     = { col_green,  col_gray1,   col_gray2 },
     [SchemeOff]    = { col_red,    col_gray1,   col_gray2 },
 };
@@ -49,8 +51,10 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "Gimp",     NULL,       NULL,       1 << 7,       1,           -1 },
+	{ "XOsview",  NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Chromium", NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -64,12 +68,12 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
- 	{ "[@]",      spiral },
- 	{ "[\\]",      dwindle },
+	{ "[@]",      spiral },
+	{ "[\\]",     dwindle },
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
