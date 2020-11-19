@@ -119,7 +119,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = webaltcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = mailcmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = fmcmd } },
-	{ MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e /bin/sh ranger") },
+	{ MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e /bin/sh /usr/bin/ranger") },
 	{ MODKEY,                       XK_s,      spawn,          {.v = speccmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpntoggle } },
 	{ 0,                            XK_F1,     spawn,          {.v = showhelp } },
