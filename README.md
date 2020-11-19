@@ -2,24 +2,25 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
-This is gergap's fork of dwm where I collect my patches, configuration  and
+This is _gergap's_ fork of dwm where I collect my patches, configuration  and
 additional files for configuration. Also have a look at my
 [cheatsheet](https://github.com/gergap/dwm/blob/gergap/dwm-cheatsheet.pdf).
 
-When installed you can always open the cheatshet by pressing F1.
+When installed you can always open the cheatsheet by pressing F1.
 
 Tools used
 ----------
 
 My configuration makes use of some other tools which are:
 
-- chromium and firefox-esr
-- evolution
-- nautilus
-- ranger
-- pactl
-- xbacklight
-- mupd
+- Chromium and firefox-esr - Web browsers
+- GNOME Evolution E-Mail client (`sudo apt install evolution`)
+- GNOME Nautilus File Manager (`sudo apt install nautilus`)
+- Ranger - Console File Manager (`sudo apt install ranger`)
+- pactl - for controlling audio volume (`sudo apt install pulseaudio-utils`)
+- xbacklight - for controlling display brightness (`sudo apt install xbacklight`)
+- mupdf - PDF viewer (`sudo apt install mupdf`)
+- st - Small and fast terminal from suckless.org (`git clone https://github.com/gergap/st`)
 - and scripts found in https://github.com/gergap/binfiles
 
 Requirements
