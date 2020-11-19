@@ -2,6 +2,9 @@
 
 #include <X11/XF86keysym.h>
 
+#define TERMINAL "st"
+#define TERMCLASS "St"
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 16;       /* gap pixel between windows */
@@ -84,14 +87,16 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define CMD(cmd) { .v = (const char*[]){ cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 static const char *webcmd[]   = { "chromium", NULL };
 static const char *webaltcmd[] = { "firefox-esr", NULL };
 static const char *mailcmd[] = { "/usr/bin/evolution", NULL };
+static const char *fmcmd[] = { "/usr/bin/nautilus", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
@@ -113,6 +118,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = webaltcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = mailcmd } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = fmcmd } },
+	{ MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e /bin/sh ranger") },
 	{ MODKEY,                       XK_s,      spawn,          {.v = speccmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpntoggle } },
 	{ 0,                            XK_F1,     spawn,          {.v = showhelp } },
@@ -130,8 +137,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
