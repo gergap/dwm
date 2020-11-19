@@ -1,0 +1,45 @@
+#!/bin/bash
+# This is my startup script for running dwm on Debian with gdm3.
+# When just using `startx` .xinitrc would be sufficient,
+# but when you want to run from GDM do this:
+# * install this script to /usr/local/bin (or symlink it)
+# * add the statusbar script to $HOME/bin
+# * install dwm.desktop into /usr/share/xsessions
+
+# make gpg-agent with ssh-support working under dwm
+export SSH_AUTH_SOCK=/run/user/1000/gnupg/S.gpg-agent.ssh
+# add ~/bin folder to PATH before dwm is started to make my scripts working
+export PATH=$HOME/bin:$PATH
+# make JAVA applications like CLion working: see https://wiki.gentoo.org/wiki/Dwm#Fix_Java_application_misbehaving
+# did I mention already, that JAVA sucks? ;-)
+wmname LG3D
+export AWT_TOOLKIT=MToolkit
+xsetroot -solid black
+# start compositing for transparency
+xcompmgr &
+# restore background image: call `feh --bg-fill <image>` first
+~/.fehbg &
+# run my statusbar script
+$HOME/bin/statusbar &
+# screen locker
+xset dpms 180
+xss-lock -- slock &
+# make keyboard faster: <repeat delay ms> <repeat-rate 1/s>
+xset r rate 300 50
+# start default terminal
+st &
+# finally run dwm
+csum=""
+new_csum=$(sha1sum $(which dwm))
+while true
+do
+    if [ "$csum" != "$new_csum" ]
+    then
+        csum=$new_csum
+        dwm
+    else
+        exit 0
+    fi
+    new_csum=$(sha1sum $(which dwm))
+    sleep 0.5
+done
