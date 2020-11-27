@@ -26,6 +26,8 @@ xset dpms 180
 xss-lock -- slock &
 # make keyboard faster: <repeat delay ms> <repeat-rate 1/s>
 xset r rate 300 50
+# enable numlock
+[ -x /usr/bin/numlockx ] && /usr/bin/numlockx
 # start default terminal
 st &
 # finally run dwm
