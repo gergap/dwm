@@ -107,6 +107,8 @@ static const char *brightup[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *brightdown[] = { "xbacklight", "-dec", "10", NULL};
 static const char *vpntoggle[] = { "vpn_toggle", NULL};
 static const char *showhelp[] = { "/usr/bin/mupdf", "/usr/local/share/doc/dwm/dwm-cheatsheet.pdf", NULL};
+static const char *scrotcmd[]  = { "scrot", "-t", "25", "-e", "mv $f /home/gergap/Screenshots", NULL };
+static const char *scrotfocusedcmd[]  = { "scrot", "--focused", "-e", "mv $f /home/gergap/Screenshots", NULL };
 
 #include "selfrestart.c"
 
@@ -123,6 +125,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_s,      spawn,          {.v = speccmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpntoggle } },
 	{ 0,                            XK_F1,     spawn,          {.v = showhelp } },
+	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd } },
+	{ ShiftMask,                    XK_Print,  spawn,          {.v = scrotfocusedcmd } },
+	{ ControlMask,                  XK_Print,  spawn,          SHCMD("sleep 1s;scrot --select -e 'mv $f /home/gergap/Screenshots'") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
