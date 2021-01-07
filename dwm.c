@@ -211,6 +211,7 @@ static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
+static void tile_mirrored(Monitor *);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggletag(const Arg *arg);
@@ -1727,6 +1728,37 @@ tile(Monitor *m)
 		} else {
 			h = (m->wh - ty) / (n - i) - gappx;
 			resize(c, m->wx + mw + gappx/ns, m->wy + ty, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
+			ty += HEIGHT(c) + gappx;
+		}
+}
+
+void
+tile_mirrored(Monitor *m)
+{
+	unsigned int i, n, h, mo, mw, my, ty, ns;
+	Client *c;
+
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	if (n > m->nmaster) {
+		mo = m->nmaster ? m->ww * m->mfact : 0;
+        mw = m->ww - mo;
+		ns = m->nmaster > 0 ? 2 : 1;
+	} else {
+		mo = m->ww;
+		mw = 0;
+		ns = 1;
+	}
+	for(i = 0, my = ty = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		if (i < m->nmaster) {
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
+			resize(c, m->wx + mo + gappx/ns, m->wy + my, mw - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
+			my += HEIGHT(c) + gappx;
+		} else {
+			h = (m->wh - ty) / (n - i) - gappx;
+			resize(c, m->wx + gappx, m->wy + ty, mo - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
 			ty += HEIGHT(c) + gappx;
 		}
 }
