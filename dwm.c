@@ -1718,15 +1718,15 @@ void tile(Monitor *m)
     else
         mw = m->ww;
 
-    for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+    for (i = 0, my = ty = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
         if (i < m->nmaster) {
-            h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-            resize(c, m->wx, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw), 0);
-            if (my + HEIGHT(c) < m->wh) my += HEIGHT(c);
+            h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
+            resize(c, m->wx + gappx, m->wy + my, mw - (2 * c->bw) - gappx, h - (2 * c->bw), 0);
+            if (my + HEIGHT(c) + gappx < m->wh) my += HEIGHT(c) + gappx;
         } else {
-            h = (m->wh - ty) / (n - i);
-            resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2 * c->bw), h - (2 * c->bw), 0);
-            if (ty + HEIGHT(c) < m->wh) ty += HEIGHT(c);
+            h = (m->wh - ty) / (n - i) - gappx;
+            resize(c, m->wx + mw + gappx, m->wy + ty, m->ww - mw - (2 * c->bw) - gappx, h - (2 * c->bw), 0);
+            if (ty + HEIGHT(c) + gappx < m->wh) ty += HEIGHT(c) + gappx;
         }
     }
 }
@@ -1744,15 +1744,15 @@ void tile_mirrored(Monitor *m)
     else
         mw = m->ww;
 
-    for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+    for (i = 0, my = ty = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
         if (i < m->nmaster) {
-            h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-            resize(c, m->ww - mw, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw), 0);
-            if (my + HEIGHT(c) < m->wh) my += HEIGHT(c);
+            h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
+            resize(c, m->ww - mw + gappx, m->wy + my, mw - (2 * c->bw) - gappx, h - (2 * c->bw), 0);
+            if (my + HEIGHT(c) + gappx < m->wh) my += HEIGHT(c) + gappx;
         } else {
-            h = (m->wh - ty) / (n - i);
-            resize(c, 0, m->wy + ty, m->ww - mw - (2 * c->bw), h - (2 * c->bw), 0);
-            if (ty + HEIGHT(c) < m->wh) ty += HEIGHT(c);
+            h = (m->wh - ty) / (n - i) - gappx;
+            resize(c, gappx, m->wy + ty, m->ww - mw - (2 * c->bw) - gappx, h - (2 * c->bw), 0);
+            if (ty + HEIGHT(c) + gappx < m->wh) ty += HEIGHT(c) + gappx;
         }
     }
 }
