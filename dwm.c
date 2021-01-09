@@ -1703,8 +1703,61 @@ tagmon(const Arg *arg)
 	sendmon(selmon->sel, dirtomon(arg->i));
 }
 
-void
-tile(Monitor *m)
+#define ORIG
+#ifdef ORIG
+void tile(Monitor *m)
+{
+    unsigned int i, n, h, mw, my, ty;
+    Client *c;
+
+    for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+    if (n == 0) return;
+
+    if (n > m->nmaster)
+        mw = m->nmaster ? m->ww * m->mfact : 0;
+    else
+        mw = m->ww;
+
+    for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+        if (i < m->nmaster) {
+            h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+            resize(c, m->wx, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw), 0);
+            if (my + HEIGHT(c) < m->wh) my += HEIGHT(c);
+        } else {
+            h = (m->wh - ty) / (n - i);
+            resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2 * c->bw), h - (2 * c->bw), 0);
+            if (ty + HEIGHT(c) < m->wh) ty += HEIGHT(c);
+        }
+    }
+}
+
+void tile_mirrored(Monitor *m)
+{
+    unsigned int i, n, h, mw, my, ty;
+    Client *c;
+
+    for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+    if (n == 0) return;
+
+    if (n > m->nmaster)
+        mw = m->nmaster ? m->ww * (1-m->mfact) : 0;
+    else
+        mw = m->ww;
+
+    for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+        if (i < m->nmaster) {
+            h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+            resize(c, m->ww - mw, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw), 0);
+            if (my + HEIGHT(c) < m->wh) my += HEIGHT(c);
+        } else {
+            h = (m->wh - ty) / (n - i);
+            resize(c, 0, m->wy + ty, m->ww - mw - (2 * c->bw), h - (2 * c->bw), 0);
+            if (ty + HEIGHT(c) < m->wh) ty += HEIGHT(c);
+        }
+    }
+}
+#else
+void tile(Monitor *m)
 {
 	unsigned int i, n, h, mw, my, ty, ns;
 	Client *c;
@@ -1735,7 +1788,7 @@ tile(Monitor *m)
 void
 tile_mirrored(Monitor *m)
 {
-	unsigned int i, n, h, mo, mw, my, ty, ns;
+	unsigned int i, n, h, sw, mw, my, ty, ns;
 	Client *c;
 
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
@@ -1743,10 +1796,12 @@ tile_mirrored(Monitor *m)
 		return;
 
 	if (n > m->nmaster) {
+        // split
 		mo = m->nmaster ? m->ww * m->mfact : 0;
         mw = m->ww - mo;
-		ns = m->nmaster > 0 ? 2 : 1;
+		ns = m->nmaster > 0 ? 2 : 1; // also no split if nmaster=0
 	} else {
+        // no split
 		mo = m->ww;
 		mw = 0;
 		ns = 1;
@@ -1758,10 +1813,11 @@ tile_mirrored(Monitor *m)
 			my += HEIGHT(c) + gappx;
 		} else {
 			h = (m->wh - ty) / (n - i) - gappx;
-			resize(c, m->wx + gappx, m->wy + ty, mo - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
+			resize(c, m->wx + gappx, m->wy + ty, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
 			ty += HEIGHT(c) + gappx;
 		}
 }
+#endif
 
 void
 togglebar(const Arg *arg)
