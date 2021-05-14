@@ -103,6 +103,7 @@ static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%"
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
 static const char *playpause[] = { "/usr/bin/rhythmbox-client", "--play-pause", NULL };
 static const char *passcmd[] = { "passmenu", "--type", NULL };
+static const char *passonlycmd[] = { "passmenu", "--type", "--pass-only", NULL };
 static const char *speccmd[] = { "specs", NULL };
 static const char *brightup[]   = { "xbacklight", "-inc", "10", NULL};
 static const char *brightdown[] = { "xbacklight", "-dec", "10", NULL};
@@ -116,7 +117,8 @@ static const char *scrotfocusedcmd[]  = { "scrot", "--focused", "-e", "mv $f /ho
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = passcmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = passonlycmd } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = passcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = webaltcmd } },
