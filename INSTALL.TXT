@@ -3,3 +3,6 @@ sudo apt install libxft-dev
 sudo apt install libxinerama-dev
 # install some tools
 sudo apt install xcompmgr feh xss-lock terminator
+# configure dwm
+sudo cp config/dwm-start /usr/local/bin/
+sudo cp config/dwm.desktop /usr/share/xsessions/
